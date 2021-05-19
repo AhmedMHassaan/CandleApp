@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        tools:context=".ui.upload.UploadArticleActivity">
+
+
+        <LinearLayout
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/tab1"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginRight="-30dp"
+                android:background="@drawable/tab_background4"
+                android:onClick="@{v->listener.onClick(v)}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="@string/from_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp"
+
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/tab_background3"
+                android:elevation="@dimen/_5sdp"
+                android:onClick="@{v->listener.onClick(v)}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/from_file"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/lblSelectedFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tabs"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Selected File"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_14ssp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fileInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblSelectedFile"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="@dimen/_10sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblFileNameHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnChooseFile"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="@string/file_name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/lblFileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/lblFileNameHint"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@id/lblFileNameHint"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    tools:text="File Name Here" />
+
+                <TextView
+                    android:id="@+id/lblFileSizeHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblFileNameHint"
+                    android:layout_alignLeft="@id/lblFileNameHint"
+                    android:layout_alignRight="@id/lblFileNameHint"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/file_size"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/lblFileSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblFileNameHint"
+                    android:layout_alignTop="@id/lblFileSizeHint"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_toRightOf="@id/lblFileSizeHint"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    tools:text="File Size Here" />
+
+                <Button
+                    android:id="@+id/btnChooseFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@drawable/btn_shape"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:text="@string/choose_file" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/lblOutputHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fileInfoContainer"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:text="@string/file_output_text"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_15ssp"
+
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btnApply"
+            android:layout_below="@id/lblOutputHint"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/lblOutputText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                tools:text="File Text Appear Here\n File Text Appear Here\n File Text Appear Here\n File Text Appear Here\n File Text Appear Here\n File Text Appear Here\n " />
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@drawable/btn_shape"
+            android:onClick="@{v->listener.onClick(v)}"
+            android:text="@string/apply"
+            android:textSize="@dimen/_16ssp"
+            app:backgroundTint="@color/colorAccent" />
+
+
+    </RelativeLayout>
+
+
+</layout>

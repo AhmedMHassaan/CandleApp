@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.ahmed.m.hassaan.candleapp.R;
 import com.ahmed.m.hassaan.candleapp.data.local.SlidesPreferenceManager;
 import com.ahmed.m.hassaan.candleapp.databinding.ActivitySplashBinding;
+import com.ahmed.m.hassaan.candleapp.ui.upload.UploadArticleActivity;
 import com.ahmed.m.hassaan.candleapp.utils.Tools;
 
 public class SplashActivity extends AppCompatActivity {
@@ -124,7 +125,8 @@ public class SplashActivity extends AppCompatActivity {
 //        else
 //            tools.startNewActivity(IntroActivity.class);
 
-        // TODO:GO TO UPLOAD PAGE
+        //
+        tools.startNewActivity(UploadArticleActivity.class);
     }
 
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/upload_nav"
+    app:startDestination="@id/fromFileFragment">
+
+    <fragment
+        android:id="@+id/fromFileFragment"
+        android:name="com.ahmed.m.hassaan.candleapp.ui.upload.fragment.file.FromFileFragment"
+        android:label="FromFileFragment"
+        tools:layout="@layout/fragment_from_file"
+        />
+    <fragment
+        android:id="@+id/fromTextFragment"
+        android:name="com.ahmed.m.hassaan.candleapp.ui.upload.fragment.text.FromTextFragment"
+        android:label="fragment_from_text"
+        tools:layout="@layout/fragment_from_text"
+        />
+
+    <action
+        android:id="@+id/actionToFileFragment"
+        app:launchSingleTop="true"
+        app:destination="@id/fromFileFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        />
+    <action
+        android:id="@+id/actionToTextFragment"
+        app:launchSingleTop="true"
+        app:destination="@id/fromTextFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        />
+
+</navigation>

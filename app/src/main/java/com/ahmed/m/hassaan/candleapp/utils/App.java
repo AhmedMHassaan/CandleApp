@@ -17,9 +17,6 @@ import static com.ahmed.m.hassaan.candleapp.utils.Tools.error;
 
 public class App extends Application {
 
-    // TODO : check proguard-rules for every third library in the application
-
-
     public static App mACTIVITY;
     public static String APP_ACTION = "com.ahmed.m.hassaan.APP_ACTION";
 

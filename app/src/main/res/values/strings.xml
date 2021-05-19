@@ -39,4 +39,16 @@
     <string name="slide_1_description">Generating Mind Map From Articles Automatically</string>
     <string name="slide_2_description">Reading Uploaded Articles Online &amp; Offline></string>
     <string name="slide_3_description">Summarize Articles Automatically For Any Uploaded Article</string>
+    <string name="upload">Upload</string>
+    <string name="from_text">From Text</string>
+    <string name="from_file">From File</string>
+    <string name="apply">Apply</string>
+    <string name="enter_text_to_be_summarized">Enter Text To Be Summarized</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="file_name">File Name :</string>
+    <string name="file_size">File Size :</string>
+    <string name="choose_file">Choose File</string>
+    <string name="file_output_text">File output Text </string>
+    <string name="changeFile">Change</string>
 </resources>
