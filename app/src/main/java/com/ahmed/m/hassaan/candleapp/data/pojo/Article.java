@@ -1,4 +1,4 @@
-package com.ahmed.m.hassaan.candleapp.data;
+package com.ahmed.m.hassaan.candleapp.data.pojo;
 
 import java.io.Serializable;
 
