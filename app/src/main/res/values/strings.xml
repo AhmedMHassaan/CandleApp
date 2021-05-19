@@ -1,3 +1,42 @@
 <resources>
     <string name="app_name">CandleApp</string>
+
+
+    <string name="shared_preference">com.ahmed.m.hassaan.MyPref</string>
+    <string name="landing_shared_preference_key">com.ahmed.m.hassaan.candleap.slides_shared_preferences_key</string>
+
+    <string name="empty_string">empty</string>
+    <string name="dynamicbox_retry">اعد المحاولة</string>
+
+    <string name="dynamicbox_loading_title" />
+    <string name="dynamicbox_loading_message">يرجي الإنتظار</string>
+
+    <string name="dynamicbox_internet_off_title">لا يوجد انترنت</string>
+    <string name="dynamicbox_internet_off_message">غير قادر علي الإتصال بالسيرفر</string>
+
+    <string name="dynamicbox_exception_title">Error</string>
+    <string name="dynamicbox_exception_message">An error has occurred, retry again</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="newMessage">New Message</string>
+    <string name="errorHappened">Error Occurred</string>
+    <string name="cannot_connect_server">Can\'t Conect The Server</string>
+    <string name="notSuccessfulResponse">Not Successful Response</string>
+
+    <string name="timestamp_format">yyyy-MM-dd kk:mm:ss</string>
+    <string name="cancel">Cancel</string>
+    <string name="alert">Alert</string>
+    <string name="savedSuccessfully">Saved Successfully</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="text_operation_based_app">Text Operation Based App</string>
+    <string name="start">Start</string>
+
+    <string name="copy_rights">  All Rights Reserved To Candle App  \u00A9 2021</string>
+    <string name="slide_1_title">Mind Map Generator</string>
+    <string name="slide_2_title">Reading Articles</string>
+    <string name="slide_3_title">Text Summarization</string>
+    <string name="slide_1_description">Generating Mind Map From Articles Automatically</string>
+    <string name="slide_2_description">Reading Uploaded Articles Online &amp; Offline></string>
+    <string name="slide_3_description">Summarize Articles Automatically For Any Uploaded Article</string>
 </resources>
