@@ -85,4 +85,10 @@
     </style>
 
 
+    <style name="ProgressStyle" parent="SpinKitView.Large">
+        <item name="android:layout_gravity">center</item>
+        <item name="SpinKit_Style">FadingCircle</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>
