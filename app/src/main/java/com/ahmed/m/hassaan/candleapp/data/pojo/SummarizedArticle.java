@@ -1,5 +1,12 @@
 package com.ahmed.m.hassaan.candleapp.data.pojo;
 
-public class SummarizedArticle {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class SummarizedArticle implements Serializable {
+
+    @SerializedName("")
+    private String s ;
 
 }

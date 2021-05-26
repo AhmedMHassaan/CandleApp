@@ -51,4 +51,5 @@
     <string name="choose_file">Choose File</string>
     <string name="file_output_text">File output Text </string>
     <string name="changeFile">Change</string>
+    <string name="ratio">Ratio : %f </string>
 </resources>

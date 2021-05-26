@@ -71,11 +71,48 @@
         </LinearLayout>
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ratio"
+            android:id="@+id/lblRatioHint"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tabs"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/lblRatioHint"
+            android:layout_toRightOf="@id/lblRatioHint"
+            android:max="10"
+            android:layout_toLeftOf="@id/btnHelp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/seekbarRatio"
+            android:layout_marginTop="@dimen/_5sdp"
+
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/lblRatioHint"
+            android:id="@+id/btnHelp"
+            />
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btnApply"
-            android:layout_below="@id/tabs"
+            android:layout_below="@id/lblRatioHint"
             android:layout_margin="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_10sdp">
 
