@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/upload_nav"
-    app:startDestination="@id/fromFileFragment">
+    app:startDestination="@id/fromTextFragment">
 
     <fragment
         android:id="@+id/fromFileFragment"
         android:name="com.ahmed.m.hassaan.candleapp.ui.upload.fragment.file.FromFileFragment"
         android:label="FromFileFragment"
         tools:layout="@layout/fragment_from_file"
+
         />
     <fragment
         android:id="@+id/fromTextFragment"

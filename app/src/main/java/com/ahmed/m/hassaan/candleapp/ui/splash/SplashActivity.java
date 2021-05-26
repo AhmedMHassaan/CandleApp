@@ -37,10 +37,10 @@ public class SplashActivity extends AppCompatActivity {
 //        }
 
         tools = new Tools(this);
-//        if (SlidesPreferenceManager.getInstance().showNextPage()) {
-//            loadHomePage();
-//            return;
-//        }
+        if (SlidesPreferenceManager.getInstance().showNextPage()) {
+            loadHomePage();
+            return;
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         makeStatuesBarTransparent();
@@ -128,7 +128,7 @@ public class SplashActivity extends AppCompatActivity {
 //            tools.startNewActivity(IntroActivity.class);
 
         //
-        msg("Load Home Screen");
+
         tools.startNewActivity(UploadArticleActivity.class);
     }
 

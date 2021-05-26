@@ -33,6 +33,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
 
         }
+        msg("Fragment Created");
     }
 
     @Override
