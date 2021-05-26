@@ -17,6 +17,8 @@ import com.ahmed.m.hassaan.candleapp.databinding.ActivitySplashBinding;
 import com.ahmed.m.hassaan.candleapp.ui.upload.UploadArticleActivity;
 import com.ahmed.m.hassaan.candleapp.utils.Tools;
 
+import static com.ahmed.m.hassaan.candleapp.utils.Tools.msg;
+
 public class SplashActivity extends AppCompatActivity {
     ActivitySplashBinding binding;
     SliderAdapter sliderAdapter = new SliderAdapter();
@@ -35,10 +37,10 @@ public class SplashActivity extends AppCompatActivity {
 //        }
 
         tools = new Tools(this);
-        if (SlidesPreferenceManager.getInstance().showNextPage()) {
-            loadHomePage();
-            return;
-        }
+//        if (SlidesPreferenceManager.getInstance().showNextPage()) {
+//            loadHomePage();
+//            return;
+//        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         makeStatuesBarTransparent();
@@ -126,6 +128,7 @@ public class SplashActivity extends AppCompatActivity {
 //            tools.startNewActivity(IntroActivity.class);
 
         //
+        msg("Load Home Screen");
         tools.startNewActivity(UploadArticleActivity.class);
     }
 

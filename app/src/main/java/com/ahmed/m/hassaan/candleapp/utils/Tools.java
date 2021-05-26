@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Patterns;
@@ -46,6 +45,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ahmed.m.hassaan.candleapp.R;
 import com.ahmed.m.hassaan.candleapp.utils.custom_dialog.CustomDialog;
@@ -1923,14 +1923,14 @@ public class Tools {
         return com.ahmed.m.hassaan.candleapp.utils.App.mACTIVITY.getString(stringRes);
     }
 
-    public void goToGallery(Fragment fragment, int requestCode) {
+  /*  public void goToGallery(Fragment fragment, int requestCode) {
         Intent intent = new Intent();
         intent
                 .setAction(Intent.ACTION_PICK)
                 .setData(MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         if (intent.resolveActivity(mContext.getPackageManager()) != null)
             fragment.startActivityForResult(intent, requestCode);
-    }
+    }*/
 
     public void goToGallery(int requestCode) {
         openIntent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI, requestCode);

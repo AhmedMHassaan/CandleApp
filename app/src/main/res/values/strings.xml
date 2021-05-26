@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CandleApp</string>
+    <string name="app_name">Candle App</string>
 
 
     <string name="shared_preference">com.ahmed.m.hassaan.MyPref</string>

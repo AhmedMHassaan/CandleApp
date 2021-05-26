@@ -2,7 +2,7 @@ package com.ahmed.m.hassaan.candleapp.utils.custom_dialog;
 
 import androidx.annotation.DrawableRes;
 
-import com.ahmed.m.hassaan.nakadanews.R;
+import com.ahmed.m.hassaan.candleapp.R;
 
 public class CustomDialogModel {
 
