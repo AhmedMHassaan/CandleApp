@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="article"
+            type="com.ahmed.m.hassaan.candleapp.data.pojo.Article" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        tools:context=".ui.showresult.ShowResultActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:padding="@dimen/_5sdp"
+                    android:rotation="180"
+                    android:src="@drawable/ic_arrow_right" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@id/btnBack"
+                    android:text="@string/preview"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp" />
+
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/lblAnalysis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/article_analysis"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_14ssp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/informationInfoContainer"
+                    style="@style/cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_below="@id/lblAnalysis"
+                    app:cardBackgroundColor="@color/white"
+                    app:contentPadding="@dimen/_5sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/lblArWordsCHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/article_words_count" />
+
+                        <TextView
+                            android:id="@+id/lblMainWordsCount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/lblArWordsCHint"
+                            android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@id/lblArWordsCHint"
+                            android:gravity="center"
+                            android:text="@{article.mainArticleWordsCount+` Word(s)`}"
+                            android:textColor="@color/black"
+                            tools:text="0 Word" />
+
+                        <TextView
+
+                            android:id="@+id/lblSummarizedWordsCountHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lblArWordsCHint"
+                            android:layout_alignLeft="@id/lblArWordsCHint"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/summarized_words_count" />
+
+                        <TextView
+                            android:id="@+id/lblSummWordsCount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/lblSummarizedWordsCountHint"
+                            android:layout_alignRight="@id/lblMainWordsCount"
+                            android:layout_toRightOf="@id/lblArWordsCHint"
+                            android:gravity="center"
+                            android:text="@{article.summarizedWordsCount+` Word(s) `}"
+                            android:textColor="@color/black"
+                            tools:text="0 Word" />
+
+                        <TextView
+
+                            android:id="@+id/lblRatioHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lblSummarizedWordsCountHint"
+                            android:layout_alignLeft="@id/lblArWordsCHint"
+                            android:layout_alignRight="@id/lblArWordsCHint"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/ratio" />
+
+                        <TextView
+                            android:id="@+id/lblRatio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/lblRatioHint"
+                            android:layout_alignRight="@id/lblMainWordsCount"
+                            android:layout_toRightOf="@id/lblRatioHint"
+                            android:gravity="center"
+                            android:text="@{article.ratio+` `}"
+                            android:textColor="@color/black"
+                            tools:text="0 Word" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/lblSummarizedArticleHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/informationInfoContainer"
+                    android:layout_alignLeft="@id/lblAnalysis"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/summarized_article"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_14ssp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/summarizedArticleContainer"
+                    style="@style/cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblSummarizedArticleHint"
+                    android:minHeight="@dimen/_100sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:contentPadding="@dimen/_5sdp">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/lblSummarizedArticle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top|right"
+                            android:padding="@dimen/_5sdp"
+                            android:scrollbars="horizontal|vertical"
+                            android:text="@{article.summarizedArticle}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14ssp"
+                            tools:text="Summarized Text Will Be Shown Here" />
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/lblWordCloudHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/summarizedArticleContainer"
+                    android:layout_alignLeft="@id/lblAnalysis"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/word_cloud"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_14ssp" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/wordCloudContainer"
+                    style="@style/cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblWordCloudHint"
+                    android:minHeight="@dimen/_100sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:contentPadding="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/wordCloud"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_5sdp"
+                        app:imageLink="@{article.wordCloud}"
+                        app:errorDrawable="@{@drawable/ic_load_image_error}"
+                        android:contentDescription="@null"
+                        tools:src="@drawable/ic_logo" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/lblMindMapHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wordCloudContainer"
+                    android:layout_alignLeft="@id/lblAnalysis"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/mind_map"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_14ssp" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/mindMapContainer"
+                    style="@style/cardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblMindMapHint"
+                    android:minHeight="@dimen/_100sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:contentPadding="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/mindMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_5sdp"
+                        app:imageLink="@{article.mindMap}"
+                        app:errorDrawable="@{@drawable/ic_load_image_error}"
+                        android:contentDescription="@null"
+                        tools:src="@drawable/ic_logo" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mindMapContainer"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_50sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:background="@drawable/btn_shape"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:text="@string/save"
+                    android:textSize="@dimen/_16ssp"
+                    app:backgroundTint="@color/colorAccent" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+</layout>

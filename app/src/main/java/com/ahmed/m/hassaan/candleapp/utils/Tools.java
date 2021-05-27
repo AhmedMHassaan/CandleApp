@@ -143,6 +143,8 @@ public class Tools {
 
     public static void msg(@NonNull Context mContext, String msg, String toastyType) {
 
+        if (msg == null || msg.isEmpty())
+            return;
         Toasty.Config instance = Toasty.Config.getInstance();
 
         Typeface typeface = ResourcesCompat.getFont(mContext, R.font.font1);
@@ -215,7 +217,7 @@ public class Tools {
     }
 
     public static void msg(String msg) {
-        msg(com.ahmed.m.hassaan.candleapp.utils.App.mACTIVITY.getApplicationContext(), msg, TOAST_INFO);
+        msg(App.mACTIVITY.getApplicationContext(), msg, TOAST_INFO);
     }
 
     public static void msg(@StringRes int msg) {
@@ -705,6 +707,7 @@ public class Tools {
                 .with(mContext)
                 .load(img)
                 .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -2117,11 +2120,11 @@ public class Tools {
     }
 
     public void customMessage(String msg) {
-        customMessage("رسالة ..!", msg, "حسنا", null);
+        customMessage(mContext.getString(R.string.newMessage), msg, mContext.getString(R.string.ok), null);
     }
 
     public void customMessage(String msg, OkButtonListener listener) {
-        customMessage("رسالة ..!", msg, "حسنا", listener);
+        customMessage(mContext.getString(R.string.newMessage), msg, mContext.getString(R.string.ok), listener);
     }
 
     public String md5(String txt) {

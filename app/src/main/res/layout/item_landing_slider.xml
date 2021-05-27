@@ -87,7 +87,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:gravity="center|top"
                 android:text="@{title}"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_25ssp"
 
                 android:textStyle="bold"

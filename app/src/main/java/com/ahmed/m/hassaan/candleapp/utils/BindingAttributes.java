@@ -95,12 +95,12 @@ public class BindingAttributes {
     public static void putImgInto(@NonNull ImageView imgView, String link, Drawable drawable) {
 
         if (drawable == null)
-            drawable = ContextCompat.getDrawable(imgView.getContext(), R.drawable.ic_logo);
+            drawable = ContextCompat.getDrawable(imgView.getContext(), R.drawable.ic_load_image_error);
 
         Glide
                 .with(imgView)
                 .load(link)
-                .placeholder(R.drawable.ic_logo)
+                .placeholder(R.drawable.ic_image_loading)
                 .timeout(10000)
                 .dontAnimate()
                 .error(drawable)

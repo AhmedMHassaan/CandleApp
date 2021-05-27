@@ -17,11 +17,11 @@ import static com.ahmed.m.hassaan.candleapp.utils.Tools.error;
 
 public class App extends Application {
 
+    public static final String TAG = "CANDLE_APP_TAG";
     public static App mACTIVITY;
     public static String APP_ACTION = "com.ahmed.m.hassaan.APP_ACTION";
 
-    public static final String NOTIFICATION_CHANEL_ID = "NakadaChannel";
-    public static final String LOGOUT_ALERTS_NOTIFICATION_CHANEL_ID = "ALERT";  // for after logout 3 days alerts
+    public static final String NOTIFICATION_CHANEL_ID = "CandleChannel";
 
     @Override
     public void onCreate() {
@@ -52,16 +52,13 @@ public class App extends Application {
     private void createNotificationChanel() {
 
         createNotChannel();
-        createLogoutNotChannel();
     }
 
     private void createNotChannel() {
         createChannel(NOTIFICATION_CHANEL_ID, "الإشعارات الخاصة بالتطبيق\nلا تقم بإلغائها حتي لا تفقد الإشعارات");
     }
 
-    private void createLogoutNotChannel() {
-        createChannel(LOGOUT_ALERTS_NOTIFICATION_CHANEL_ID, "تنبيهات");
-    }
+
 
     private void createChannel(String channelId, String channelDesc){
 //        Uri soundUri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.notification);

@@ -2,7 +2,7 @@ package com.ahmed.m.hassaan.candleapp.data.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WordCloudResponse {
+public class WordCloud {
 
     @SerializedName("imageLink")
     private String imageLink;
@@ -12,7 +12,7 @@ public class WordCloudResponse {
         return imageLink;
     }
 
-    public WordCloudResponse(String imageLink) {
+    public WordCloud(String imageLink) {
         this.imageLink = imageLink;
     }
 

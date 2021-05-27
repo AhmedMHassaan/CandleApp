@@ -51,5 +51,24 @@
     <string name="choose_file">Choose File</string>
     <string name="file_output_text">File output Text </string>
     <string name="changeFile">Change</string>
-    <string name="ratio">Ratio : %f </string>
+    <string name="ratio">Ratio : </string>
+    <string name="result_is_ready_to_be_shown">Result is Ready To Be Shown</string>
+    <string name="show_result">Show Result</string>
+    <string name="retry">Retry</string>
+    <string name="preview">Preview</string>
+    <string name="article_words_count">Article Words Count :</string>
+    <string name="article_analysis">Article Analysis :</string>
+    <string name="summarized_words_count">Summarized Words Count :</string>
+    <string name="summarized_article">Summarized Article :</string>
+    <string name="images">Images</string>
+    <string name="word_cloud">Word Cloud :</string>
+    <string name="mind_map">Mind Map :</string>
+    <string name="save">Save</string>
+    <string name="no_article_founded">"No Article Found "</string>
+    <string name="some_data_not_founded">Some Data is Not Founded</string>
+    <string name="_0_0">0.0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="show_result_anyway">Result Not Completely Successful\n Show AnyWay </string>
+    <string name="control_of_summary_size_using_ratio">Control Of Summary Size Using Ratio</string>
 </resources>
