@@ -4,6 +4,7 @@
 
     <string name="shared_preference">com.ahmed.m.hassaan.MyPref</string>
     <string name="landing_shared_preference_key">com.ahmed.m.hassaan.candleap.slides_shared_preferences_key</string>
+    <string name="shoing_show_case">com.ahmed.m.hassaan.candleap.sshowcase_shared_preferences_key</string>
 
     <string name="empty_string">empty</string>
     <string name="dynamicbox_retry">اعد المحاولة</string>

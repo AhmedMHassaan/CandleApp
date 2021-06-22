@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 
 import com.ahmed.m.hassaan.candleapp.R;
+import com.ahmed.m.hassaan.candleapp.data.local.ShowCasePreferences;
 import com.ahmed.m.hassaan.candleapp.data.local.room.CandleDatabase;
 import com.ahmed.m.hassaan.candleapp.data.pojo.Article;
 import com.ahmed.m.hassaan.candleapp.data.pojo.MindMap;
@@ -43,6 +47,10 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
+import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
 
 import static com.ahmed.m.hassaan.candleapp.utils.Tools.error;
 import static com.ahmed.m.hassaan.candleapp.utils.Tools.msg;
@@ -54,6 +62,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
     ArticlesViewModel articlesViewModel;
     private final Article article = new Article();
     private final CandleDatabase database = CandleDatabase.getInstance();
+    private ShowCasePreferences showCasePreferences = ShowCasePreferences.getInstance();
 
     public FromTextFragment() {
 
@@ -85,7 +94,51 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
         binding.setListener(this);
         article.setRatio(0.7);
         binding.lblRatio.setText(String.valueOf(article.getRatio()));
+
+        startShowCaseHint();  // to show hint and help for using
+
         return binding.getRoot();
+    }
+
+    /**
+     * start showing hints and help
+     */
+    private void startShowCaseHint() {
+
+        if (showCasePreferences.startShowCase()) {
+            doShowCase(0, binding.tab1, "Text Operations", "Click Here To Start Text Operations\n start Typing And Editing");
+        }
+    }
+
+    private void doShowCase(int step, View view, String title, String content) {
+        new GuideView.Builder(getContext())
+                .setTitle(title)
+                .setContentText(content)
+                .setTargetView(view)
+                .setContentTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
+                .setTitleTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
+                .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
+                .setTitleTextSize((int) ResourcesCompat.getFloat(getResources(), R.dimen._9ssp))//optional
+                .setGravity(Gravity.center)//optional
+                .setGuideListener(new GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+                        // 0    ==>   tab1
+                        if (step == 0)
+                            doShowCase(1, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                        else if (step == 1){ // 1  ==> ratio
+                            doShowCase(2, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                        }else if (step == 2){ // hint for ratio
+                            doShowCase(3, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                        }
+                        else if (step == 3){ // hint for apply button
+                            doShowCase(4, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                        }
+
+                    }
+                })
+                .build()
+                .show();
     }
 
     @Override
