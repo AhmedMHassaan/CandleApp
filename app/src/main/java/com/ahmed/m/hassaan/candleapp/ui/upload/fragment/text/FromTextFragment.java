@@ -62,7 +62,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
     ArticlesViewModel articlesViewModel;
     private final Article article = new Article();
     private final CandleDatabase database = CandleDatabase.getInstance();
-    private ShowCasePreferences showCasePreferences = ShowCasePreferences.getInstance();
+    private final ShowCasePreferences showCasePreferences = ShowCasePreferences.getInstance();
 
     public FromTextFragment() {
 
@@ -118,21 +118,21 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
                 .setContentTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
                 .setTitleTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
                 .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
-                .setTitleTextSize((int) ResourcesCompat.getFloat(getResources(), R.dimen._9ssp))//optional
                 .setGravity(Gravity.center)//optional
                 .setGuideListener(new GuideListener() {
                     @Override
                     public void onDismiss(View view) {
                         // 0    ==>   tab1
                         if (step == 0)
-                            doShowCase(1, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
-                        else if (step == 1){ // 1  ==> ratio
-                            doShowCase(2, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
-                        }else if (step == 2){ // hint for ratio
-                            doShowCase(3, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
-                        }
-                        else if (step == 3){ // hint for apply button
-                            doShowCase(4, binding.btnRationPlus, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                            doShowCase(1, binding.lblRatioHelp, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                        else if (step == 1) {
+                            doShowCase(2, binding.txtInput, "Text Here", "Enter Text Here To Be Summarized \n Try to make long text to better results");
+                        } else if (step == 2) {
+                            doShowCase(3, binding.btnApply, "Apply Text", "Apply Text To be Uploaded \n summarized \n Mind map generated");
+                        } else if (step == 3) { // hint for apply button
+                            doShowCase(4, binding.tab2, "From File Section", "To Show File Operation to start symmetrization ");
+                        } else if (step == 4) {
+                            onClick(binding.tab2);
                         }
 
                     }

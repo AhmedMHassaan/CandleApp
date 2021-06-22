@@ -48,6 +48,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ahmed.m.hassaan.candleapp.R;
+import com.ahmed.m.hassaan.candleapp.utils.custom_dialog.CancelButtonListener;
 import com.ahmed.m.hassaan.candleapp.utils.custom_dialog.CustomDialog;
 import com.ahmed.m.hassaan.candleapp.utils.custom_dialog.CustomDialogModel;
 import com.ahmed.m.hassaan.candleapp.utils.custom_dialog.OkButtonListener;
@@ -90,6 +91,10 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
+import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.ahmed.m.hassaan.candleapp.utils.ToastTags.TOAST_ERROR;
@@ -2101,6 +2106,29 @@ public class Tools {
                 .setImage(R.drawable.ic_info_outline_white_24dp)
                 .build().show();
     }
+public void customMessage(String title, String msg, String okBtn, OkButtonListener listener, String cnclBtn) {
+        new CustomDialog
+                .Builder(mContext)
+                .setTitle(title)
+                .setMessage(msg)
+                .setCancelable(false)
+                .setOkButton(okBtn, listener)
+                .setNoButton(null, null)
+                .setCancelButton(cnclBtn, null)
+                .setImage(R.drawable.ic_info_outline_white_24dp)
+                .build().show();
+    }public void customMessage(String title, String msg, String okBtn, OkButtonListener listener, String cnclBtn, CancelButtonListener cnclListener) {
+        new CustomDialog
+                .Builder(mContext)
+                .setTitle(title)
+                .setMessage(msg)
+                .setCancelable(false)
+                .setOkButton(okBtn, listener)
+                .setNoButton(null, null)
+                .setCancelButton(cnclBtn, cnclListener)
+                .setImage(R.drawable.ic_info_outline_white_24dp)
+                .build().show();
+    }
 
     public void customMessage(String msg, String okBtn, OkButtonListener listener) {
         customMessage("رسالة ..!", msg, okBtn, listener);
@@ -2196,6 +2224,26 @@ public class Tools {
     }
 
 
+    /**
+     * to do hints and helps
+     * @param view the view where hint is put
+     * @param title title of hint or help
+     * @param content content of hint
+     * @param listener listener after hiding cotent
+     */
+    public void doShowCase( View view, String title, String content, GuideListener listener) {
+        new GuideView.Builder(getContext())
+                .setTitle(title)
+                .setContentText(content)
+                .setTargetView(view)
+                .setContentTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
+                .setTitleTypeFace(ResourcesCompat.getFont(getContext(), R.font.font1))//optional
+                .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
+                .setGravity(Gravity.center)//optional
+                .setGuideListener(listener)
+                .build()
+                .show();
+    }
 
     public static class FoldersName {
         public static final String CHAT_IMAGES = "ChatsImages";

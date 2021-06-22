@@ -150,6 +150,91 @@
                     android:textSize="@dimen/_15ssp"
                     tools:text="File Size Here" />
 
+                <TextView
+                    android:id="@+id/lblRatioHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblFileSizeHint"
+                    android:layout_alignLeft="@id/lblRatioHint"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/control_of_summary_size_using_ratio"
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_9ssp" />
+
+                <TextView
+                    android:id="@+id/lblRatioHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lblRatioHelp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/ratio"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRationMinus"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@id/lblRatioHelp"
+                    android:layout_marginLeft="@dimen/_35sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_toRightOf="@id/lblRatioHint"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/lblRatio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/lblRatioHint"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_toLeftOf="@id/btnRationPlus"
+                    android:layout_toRightOf="@id/btnRationMinus"
+                    android:gravity="center"
+                    android:text="@string/_0_0"
+                    android:textColor="@color/white"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRationPlus"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignTop="@id/btnRationMinus"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_35sdp"
+                    android:layout_toLeftOf="@id/btnHelp"
+                    android:gravity="center"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/colorPrimary" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/btnHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/lblRatioHint"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:onClick="@{v->listener.onClick(v)}"
+                    android:src="@drawable/ic_info" />
+
+
+
+
                 <Button
                     android:id="@+id/btnChooseFile"
                     android:layout_width="wrap_content"
@@ -212,6 +297,20 @@
             android:text="@string/apply"
             android:textSize="@dimen/_16ssp"
             app:backgroundTint="@color/colorAccent" />
+
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress"
+            style="@style/SpinKitView.Large.RotatingPlane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/_5sdp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorAccent"
+            app:SpinKit_Style="RotatingPlane"
+            tools:visibility="visible" />
+
 
 
     </RelativeLayout>
