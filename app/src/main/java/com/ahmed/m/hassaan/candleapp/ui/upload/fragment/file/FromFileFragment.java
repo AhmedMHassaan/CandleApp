@@ -715,6 +715,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
 
     }
 
+
     private void readFile(Uri data) {
 
         try {
