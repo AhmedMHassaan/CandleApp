@@ -15,12 +15,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.CandleApp"
         tools:replace="android:supportsRtl">
-        <activity android:name=".ui.showresult.ShowResultActivity"></activity>
+        <activity android:name=".ui.showresult.ShowResultActivity" />
+        <activity android:name=".ui.full_screen.FullScreenImageViewActivity" />
         <activity android:name=".ui.upload.UploadArticleActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>

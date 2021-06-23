@@ -232,12 +232,11 @@
                     app:cardBackgroundColor="@color/white"
                     app:contentPadding="@dimen/_10sdp">
 
-                    <ImageView
+                    <com.ahmed.m.hassaan.candleapp.ui.full_screen.TouchImageView
                         android:id="@+id/wordCloud"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_5sdp"
-                        app:imageLink="@{article.wordCloud}"
                         app:errorDrawable="@{@drawable/ic_load_image_error}"
                         android:contentDescription="@null"
                         tools:src="@drawable/ic_logo" />
@@ -268,12 +267,11 @@
                     app:cardBackgroundColor="@color/white"
                     app:contentPadding="@dimen/_10sdp">
 
-                    <ImageView
+                    <com.ahmed.m.hassaan.candleapp.ui.full_screen.TouchImageView
                         android:id="@+id/mindMap"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_5sdp"
-                        app:imageLink="@{article.mindMap}"
                         app:errorDrawable="@{@drawable/ic_load_image_error}"
                         android:contentDescription="@null"
                         tools:src="@drawable/ic_logo" />

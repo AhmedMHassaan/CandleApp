@@ -343,7 +343,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
                         },
                         dialog -> {
                             // show the result
-                            prepareArticleForShown();
+                            saveArticleIndbAndShowResult();
                         },
                         dialog -> {
                             // cancel the request
@@ -358,6 +358,31 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
+
+    }
+
+    private void saveArticleIndbAndShowResult() {
+        database
+                .articlesDao()
+                .insertArticle(article)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        goToShowResultActivity();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        tools.showExceptionError(e.getMessage());
+                    }
+                });
 
     }
 
