@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -47,7 +48,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import br.com.onimur.handlepathoz.HandlePathOz;
+import br.com.onimur.handlepathoz.HandlePathOzListener;
+import br.com.onimur.handlepathoz.model.PathOz;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -57,10 +63,11 @@ import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
 import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
 
+import static android.app.Activity.RESULT_OK;
 import static com.ahmed.m.hassaan.candleapp.utils.Tools.error;
 import static com.ahmed.m.hassaan.candleapp.utils.Tools.msg;
 
-public class FromFileFragment extends Fragment implements View.OnClickListener {
+public class FromFileFragment extends Fragment implements View.OnClickListener, HandlePathOzListener.SingleUri {
 
     FragmentFromFileBinding binding;
     private final ShowCasePreferences showCasePreferences = ShowCasePreferences.getInstance();
@@ -72,7 +79,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
     ArticlesViewModel articlesViewModel;
     private final Article article = new Article();
     private final CandleDatabase database = CandleDatabase.getInstance();
-
+    HandlePathOz handlePathOz;
 
     public FromFileFragment() {
 
@@ -86,7 +93,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         tools = new Tools(getContext());
-
+        handlePathOz = new HandlePathOz(getContext(), this);
         initViewModels();
 
         requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -105,24 +112,29 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
                         getString(R.string.storeage_permission_hints),
                         getString(R.string.give_permission),
                         dialog -> {
-                            checkPermission();
+                            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         },
                         getString(R.string.no)
                 );
             }
         });
 
-        fileChooserLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    if (result.getData() != null && result.getData().getData() != null) {
-                        readFile(result.getData().getData());
-                        binding.btnChooseFile.setText(R.string.changeFile);
-                    } else {
-                        error("No File Choosed");
-                    }
+        fileChooserLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                Log.d(App.TAG, "onClick: the result is Ok ");
+                if (result.getData() == null || result.getData().getData() == null) {
+                    Log.d(App.TAG, "onClick:  data is null or getData is null");
+                } else {
+
+
+                    Uri data = result.getData().getData();
+//                    handlePathOz.getRealPath(data);
+                    readFile(data);
+
                 }
+            } else {
+                error("No File Chosen");
+                isErrorFounded = true;
             }
         });
 
@@ -144,7 +156,8 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void observeViewModels() {
-        articlesViewModel.getSummarizedLiveData().observe(getViewLifecycleOwner(), schema -> {
+
+        /*articlesViewModel.getSummarizedLiveData().observe(getViewLifecycleOwner(), schema -> {
 
             hideProgress();
 
@@ -236,7 +249,133 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
 
 
             }
+        });*/
+
+
+
+
+
+        /*articlesViewModel.getFileContentLiveData().observe(getViewLifecycleOwner(), schema -> {
+            enableView(true);
+            if (schema.isSuccessful()) {
+                binding.lblOutputText.setText(schema.getResponse());
+            } else {
+                schema.showError(getContext());
+            }
+        });*/
+
+        articlesViewModel.getSummarizedLiveData().observe(getViewLifecycleOwner(), schema -> {
+
+            enableView(false);
+
+            if (schema.isSuccessful()) {
+                SummarizedArticle response = schema.getResponse();
+                article.setSummarizedArticle(response.getSummarizedArticle());
+                article.setMainArticleWordsCount(response.getMainArticleWordsCount());
+                article.setSummarizedWordsCount(response.getSummarizedWordsCount());
+                Log.d(App.TAG, "observeViewModels:  Count = " + response.getSummarizedWordsCount() + "\nSummarizedText is : " + response.getSummarizedArticle());
+//                msg(schema.getMessage());
+                enableView(true);
+                articlesViewModel.generateWordCloud(article.getArticle());
+
+            } else {
+
+                errorOccurred(schema.getMessage(), dialog -> {
+                            enableView(false);
+                            articlesViewModel.summarize(article.getArticle(), article.getRatio());
+                        },
+                        dia -> {
+                            article.setSummarizedArticle("");
+                            article.setSummarizedWordsCount(0);
+                            article.setMainArticleWordsCount(0);
+                        });
+            }
         });
+
+        articlesViewModel.getWordCloudLiveData().observe(getViewLifecycleOwner(), schema -> {
+            enableView(true);
+            if (schema.isSuccessful()) {
+                article.setWordCloud(schema.getResponse().getImageLink());
+                Log.d(App.TAG, "observeViewModels:  WordCloud is : " + schema.getResponse().getImageLink());
+
+//                msg(schema.getMessage());
+                enableView(false);
+                articlesViewModel.generateMindMap(article.getSummarizedArticle());
+
+
+            } else {
+
+                // to avoid null word cloud in result page we set default value for wordCloud as empty string
+
+                errorOccurred(schema.getMessage(), dialog -> {
+                    enableView(false);
+                    articlesViewModel.generateWordCloud(article.getArticle());
+
+                }, dialog -> article.setWordCloud(""));
+
+            }
+        });
+
+
+        articlesViewModel.getMindMapLiveData().observe(getViewLifecycleOwner(), schema -> {
+            enableView(true);
+            if (schema.isSuccessful()) {
+
+//                msg(schema.getMessage()); // show message from server side
+                article.setMindMap(schema.getResponse().getImageLink());  // assign mindMap to article
+
+                Tools.msg("Process Finished Successfully", ToastTags.TOAST_SUCCESS);
+                prepareArticleForShown();
+
+            } else {
+
+                // show the error message and ask for retry
+
+                tools.customMessage(new CustomDialogModel(
+                        getString(R.string.newMessage),
+                        schema.getMessage() + ".\n" + getString(R.string.show_result_anyway) + "\nOr Retry Again ?",
+                        getString(R.string.retry),
+                        getString(R.string.show_result),
+                        getString(R.string.cancel),
+                        dialog -> {
+                            // retry the Request
+                            articlesViewModel.generateMindMap(article.getSummarizedArticle());
+                        },
+                        dialog -> {
+                            // show the result
+                            prepareArticleForShown();
+                        },
+                        dialog -> {
+                            // cancel the request
+                            article.setMindMap(""); // set the mind map to not be null in the next page
+                        },
+                        false,
+                        0
+
+                ));
+
+
+            }
+        });
+
+
+    }
+
+    private void enableView(boolean enalbe) {
+        binding.btnChooseFile.setEnabled(enalbe);
+        binding.btnRationMinus.setEnabled(enalbe);
+        binding.btnRationPlus.setEnabled(enalbe);
+        binding.btnApply.setEnabled(enalbe);
+        binding.btnHelp.setEnabled(enalbe);
+
+
+        if (enalbe) {
+
+            binding.progress.setVisibility(View.GONE);
+        } else {
+
+            binding.progress.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -292,7 +431,9 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFromFileBinding.inflate(inflater, container, false);
         binding.setListener(this);
-        observeViewModels();
+        article.setRatio(0.7);
+        binding.lblRatio.setText(String.valueOf(article.getRatio()));
+        binding.setListener(this);
 
         if (showCasePreferences.startShowCase()) {
             startShowCaseHint();
@@ -356,6 +497,79 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        observeViewModels();
+    }
+
+
+    @Override
+    public void onRequestHandlePathOz(@NonNull PathOz pathOz, Throwable throwable) {
+
+
+        if (throwable != null) {
+            Log.d(App.TAG, "onRequestHandlePathOz: Error Happnend " + throwable.getMessage());
+        }
+
+
+        Log.d(App.TAG, "onRequestHandlePathOz: File Type is : " + pathOz.getType());
+        File file = new File(pathOz.getPath());
+        String ex = file.getName().substring(file.getName().lastIndexOf(".") + 1).toLowerCase();
+        Log.d(App.TAG, "onRequestHandlePathOz: Extension is " + ex);
+        if (!("txt".equals(ex) || "pdf".equals(ex))) {
+            Log.d(App.TAG, "onRequestHandlePathOz: Con not process " + ex + " Files ");
+            error("Con not process " + ex + " Files ");
+            return;
+        }
+
+        if (file.exists()) {
+            Log.d(App.TAG, "onAttach: File Exists ");
+        } else {
+            Log.d(App.TAG, "onAttach: File Not Exists ");
+        }
+
+
+        try {
+
+
+            enableView(false); // to show progress and disable the buttons;
+
+            if (getActivity() == null || getActivity().getContentResolver() == null) {
+                Log.d(App.TAG, "onRequestHandlePathOz: Error in getActivity Or getContentResolver");
+                return;
+            }
+
+            InputStream in = getActivity().getContentResolver().openInputStream(Uri.fromFile(file));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            String line;
+            StringBuilder builder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                builder.append(line);
+            }
+
+            enableView(true);
+            binding.lblFileName.setText(file.getName());
+            int size = Integer.parseInt(String.valueOf(file.length() / 1024));
+            binding.lblFileSize.setText(String.valueOf(size).concat(" KB "));
+            binding.lblOutputText.setText(builder.toString());
+            isErrorFounded = false;
+            binding.btnChooseFile.setText(R.string.changeFile);
+//            binding.lblOutputText.setText("Wait Untel Reading File");
+
+
+        } catch (@NonNull Exception e) {
+            enableView(true);
+            binding.lblOutputText.setText("Error !!\n".concat(e.getMessage()));
+            isErrorFounded = true;
+            Log.d(App.TAG, "onRequestHandlePathOz: " + e.getMessage());
+        }
+
+    }
+
+
+/*
+    @Override
     public void onClick(View v) {
         if (v == binding.tab1) {
             NavHostFragment.findNavController(this).navigate(R.id.actionToTextFragment);
@@ -388,7 +602,77 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
             articlesViewModel.summarize(text, article.getRatio());
         }
 
+    }*/
+
+    @Override
+    public void onClick(View v) {
+        if (v == binding.tab1) {
+            NavHostFragment.findNavController(this).navigate(R.id.actionToTextFragment);
+        } else if (v == binding.btnChooseFile) {
+
+//            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                enableView(false);
+//                articlesViewModel.getFileContent(file);
+
+            checkPermission();
+
+//            } else {
+//                permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//
+//            }
+
+
+        } else if (v == binding.btnApply) {
+
+            if (isErrorFounded) {
+                tools.customMessage("There are errors happened\nfix it and try again.");
+                return;
+            }
+            if (binding.progress.getVisibility() == View.VISIBLE) {
+                error("Wait Until Process be  Finished");
+                return;
+            }
+
+            if (article.getRatio() <= .2) {
+                Tools.msg("It is small value to ratio", ToastTags.TOAST_WARNING);
+            }
+
+            String text = binding.lblOutputText.getText().toString();
+            if (text.isEmpty() || text.length() < 50) {
+                Snackbar.make(binding.btnApply, "Please Inter Text To Be Summarized > 100 litters ", BaseTransientBottomBar.LENGTH_LONG).show();
+                return;
+            }
+            enableView(false);
+            article.setArticle(text);
+            articlesViewModel.summarize(text, article.getRatio());
+        } else if (v == binding.btnRationPlus) {
+            double ratio = article.getRatio();
+            if (ratio >= 1f) {
+                ratio = 1f;
+                return;
+            }
+            ratio += 0.1f;
+            article.setRatio(ratio);
+            binding.lblRatio.setText(String.valueOf(article.getRatio()));
+
+        } else if (v == binding.btnRationMinus) {
+            double ratio = article.getRatio();
+            if (ratio <= 0.1) {
+                ratio = 0.1f;
+                return;
+            }
+
+            ratio -= 0.1f;
+            article.setRatio(ratio);
+            binding.lblRatio.setText(String.valueOf(article.getRatio()));
+
+        } else if (v == binding.btnHelp) {
+            tools.customMessage("You Can Control Of Summary Size Using Ratio");
+        }
+
+
     }
+
 
     private void errorOccurred(String message, OkButtonListener retryListener, CancelButtonListener cancelButtonListener) {
 
@@ -415,8 +699,9 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
             tools.customMessage(
                     getString(R.string.required_permission),
                     getString(R.string.storeage_permission_hints),
+                    getString(R.string.give_permission),
                     dialog -> {
-                        checkPermission();
+                        requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     },
                     getString(R.string.no)
             );
@@ -431,45 +716,36 @@ public class FromFileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void readFile(Uri data) {
-        File file = new File(data.getPath());
-
-        //Read text from file
-        StringBuilder text = new StringBuilder();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
 
-            while ((line = br.readLine()) != null) {
-                text.append(line);
-            }
-            br.close();
+            File file = new File(data.toString());
+            binding.lblFileName.setText(file.getName());
+            int size = Integer.parseInt(String.valueOf(file.length() / 1024));
+            binding.lblFileSize.setText(String.valueOf(size).concat(" KB "));
             isErrorFounded = false;
-            binding.lblOutputText.setText(text.toString());
-        } catch (IOException e) {
+            binding.btnChooseFile.setText(R.string.changeFile);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getActivity().getContentResolver().openInputStream(data)));
+            String line;
+            StringBuilder builder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                builder.append(line);
+                Log.d("TAG", "readFile: line is " + line);
+            }
+
+            bufferedReader.close();
+
+            isErrorFounded = false;
+            binding.lblOutputText.setText(builder.toString());
+
+        } catch (Exception e) {
+
             isErrorFounded = true;
             binding.lblOutputText.setText(e.getMessage());
-
         }
 
+
     }
-
-    private void showProgress() {
-
-        binding.btnApply.setEnabled(false);
-        binding.btnChooseFile.setEnabled(false);
-        binding.btnRationMinus.setEnabled(false);
-        binding.btnRationPlus.setEnabled(false);
-        binding.progress.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgress() {
-        binding.btnApply.setEnabled(true);
-        binding.btnChooseFile.setEnabled(true);
-        binding.btnRationMinus.setEnabled(true);
-        binding.btnRationPlus.setEnabled(true);
-        binding.progress.setVisibility(View.GONE);
-    }
-
 
 }

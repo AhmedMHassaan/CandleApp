@@ -96,6 +96,7 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.7.0' // lottie json animation
 
+    implementation 'com.github.onimur:handle-path-oz:1.0.7'
 
 //    implementation 'com.opensooq.supernova:gligar:1.1.0' // pick image - multi picker
 
