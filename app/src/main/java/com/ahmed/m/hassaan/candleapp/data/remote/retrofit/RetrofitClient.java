@@ -18,7 +18,12 @@ public class RetrofitClient {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient.Builder().callTimeout(60000, TimeUnit.MILLISECONDS).connectTimeout(60000, TimeUnit.MILLISECONDS).build())
+                .client(
+                        new OkHttpClient
+                                .Builder()
+                                .callTimeout(30, TimeUnit.SECONDS)
+                                .connectTimeout(30, TimeUnit.SECONDS).build()
+                )
                 .build();
     }
 

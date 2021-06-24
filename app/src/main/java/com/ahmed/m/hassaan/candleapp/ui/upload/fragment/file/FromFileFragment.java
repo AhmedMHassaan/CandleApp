@@ -266,16 +266,17 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
 
         articlesViewModel.getSummarizedLiveData().observe(getViewLifecycleOwner(), schema -> {
 
-            enableView(false);
+            enableView(true);
 
             if (schema.isSuccessful()) {
                 SummarizedArticle response = schema.getResponse();
                 article.setSummarizedArticle(response.getSummarizedArticle());
                 article.setMainArticleWordsCount(response.getMainArticleWordsCount());
                 article.setSummarizedWordsCount(response.getSummarizedWordsCount());
-                Log.d(App.TAG, "observeViewModels:  Count = " + response.getSummarizedWordsCount() + "\nSummarizedText is : " + response.getSummarizedArticle());
+                Log.d(App.TAG, "observeViewModels:  Count = "
+                        + response.getSummarizedWordsCount() + "\nSummarizedText is : " + response.getSummarizedArticle());
 //                msg(schema.getMessage());
-                enableView(true);
+                enableView(false);
                 articlesViewModel.generateWordCloud(article.getArticle());
 
             } else {
@@ -292,6 +293,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
+
         articlesViewModel.getWordCloudLiveData().observe(getViewLifecycleOwner(), schema -> {
             enableView(true);
             if (schema.isSuccessful()) {
@@ -306,7 +308,6 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
             } else {
 
                 // to avoid null word cloud in result page we set default value for wordCloud as empty string
-
                 errorOccurred(schema.getMessage(), dialog -> {
                     enableView(false);
                     articlesViewModel.generateWordCloud(article.getArticle());
@@ -328,9 +329,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
                 prepareArticleForShown();
 
             } else {
-
                 // show the error message and ask for retry
-
                 tools.customMessage(new CustomDialogModel(
                         getString(R.string.newMessage),
                         schema.getMessage() + ".\n" + getString(R.string.show_result_anyway) + "\nOr Retry Again ?",
