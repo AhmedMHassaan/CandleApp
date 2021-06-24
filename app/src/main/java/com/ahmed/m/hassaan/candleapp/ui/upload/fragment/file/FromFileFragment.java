@@ -456,7 +456,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFromFileBinding.inflate(inflater, container, false);
         binding.setListener(this);
-        article.setRatio(0.7);
+        article.setRatio(0.4);
         binding.lblRatio.setText(String.valueOf(article.getRatio()));
         binding.setListener(this);
 

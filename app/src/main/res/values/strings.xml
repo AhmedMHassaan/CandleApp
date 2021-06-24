@@ -79,4 +79,8 @@
     <string name="required_permission">Required Permission</string>
     <string name="storeage_permission_hints">We Need This Permision To Start Files Summarizations</string>
     <string name="give_permission">Give Permission</string>
+    <string name="process_in_progress">Process is in progress</string>
+    <string name="ignore_current_process">Ignore Current Progress  Any where?</string>
+    <string name="stay_here">Stay Here</string>
+    <string name="go_any_way">Go Any Way</string>
 </resources>

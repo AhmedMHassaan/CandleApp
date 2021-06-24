@@ -59,6 +59,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
 
     FragmentFromTextBinding binding;
     Tools tools;
+    boolean isFileLoading = false;
     ArticlesViewModel articlesViewModel;
     private final Article article = new Article();
     private final CandleDatabase database = CandleDatabase.getInstance();
@@ -92,7 +93,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFromTextBinding.inflate(inflater, container, false);
         binding.setListener(this);
-        article.setRatio(0.7);
+        article.setRatio(0.4);
         binding.lblRatio.setText(String.valueOf(article.getRatio()));
 
         startShowCaseHint();  // to show hint and help for using
@@ -186,7 +187,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
 
 //                msg(schema.getMessage());
                 showProgress();
-                articlesViewModel.generateMindMap(article.getSummarizedArticle());
+                articlesViewModel.generateMindMap(article.getArticle());
 
 
             } else {
@@ -281,7 +282,9 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
                                     tools.showExceptionError(e.getMessage());
                                 }
                             });
-                }
+                },
+                getString(R.string.stay_here),
+                null
 
 
         ));
@@ -309,7 +312,23 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == binding.tab2) {
-            NavHostFragment.findNavController(this).navigate(R.id.actionToFileFragment);
+            if (binding.txtInput.getText().length() > 0) {
+
+                tools.customMessage(
+                        getString(R.string.process_in_progress),
+                        getString(R.string.ignore_current_process),
+                        getString(R.string.stay_here),
+                        null,
+                        getString(R.string.go_any_way),
+                        dialog -> {
+                            goToFileFragment();
+                        }
+                );
+            } else {
+                goToFileFragment();
+            }
+
+
         } else if (v == binding.btnApply) {
 
             if (binding.progress.getVisibility() == View.VISIBLE) {
@@ -326,6 +345,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
                 Snackbar.make(binding.btnApply, "Please Inter Text To Be Summarized > 100 litters ", BaseTransientBottomBar.LENGTH_LONG).show();
                 return;
             }
+
             showProgress();
             article.setArticle(text);
             articlesViewModel.summarize(text, article.getRatio());
@@ -355,15 +375,23 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void goToFileFragment() {
+        NavHostFragment.findNavController(this).navigate(R.id.actionToFileFragment);
+    }
+
     private void showProgress() {
         binding.txtInput.setEnabled(false);
         binding.btnApply.setEnabled(false);
+        binding.btnRationMinus.setEnabled(false);
+        binding.btnRationPlus.setEnabled(false);
         binding.progress.setVisibility(View.VISIBLE);
     }
 
     private void hideProgress() {
         binding.txtInput.setEnabled(true);
         binding.btnApply.setEnabled(true);
+        binding.btnRationMinus.setEnabled(true);
+        binding.btnRationPlus.setEnabled(true);
         binding.progress.setVisibility(View.GONE);
     }
 
