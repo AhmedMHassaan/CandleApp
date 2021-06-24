@@ -734,7 +734,15 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
         } else {
             // You can directly ask for the permission.
             // The registered ActivityResultCallback gets the result of this request.
-            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            tools.customMessage(
+                    getString(R.string.required_permission),
+                    getString(R.string.open_sittings_and_give_permission),
+                    getString(R.string.ok),
+                    dialog -> {
+                        tools.goToAppSittings();
+                    },
+                    getString(R.string.no)
+            );
         }
 
 

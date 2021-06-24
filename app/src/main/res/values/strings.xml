@@ -84,4 +84,5 @@
     <string name="stay_here">Stay Here</string>
     <string name="go_any_way">Go Any Way</string>
     <string name="restart_trip">Restart Trip</string>
+    <string name="open_sittings_and_give_permission">\"Open Setting and Give us The Permission \"</string>
 </resources>
