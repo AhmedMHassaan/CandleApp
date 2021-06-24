@@ -492,7 +492,7 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
                     public void onDismiss(View view) {
                         // 0    ==>   tab1
                         if (step == 0)
-                            doShowCase(1, binding.btnApply, "Ratio", "Change Ratio To Control Of Summarization Size ");
+                            doShowCase(1, binding.lblRatio, "Ratio", "Change Ratio To Control Of Summarization Size ");
                         else if (step == 1) {
                             doShowCase(2, binding.lblOutputHint, "Output text", "Here The Text generated from file is shown \n just after read file");
                         } else if (step == 2) {
@@ -503,14 +503,14 @@ public class FromFileFragment extends Fragment implements View.OnClickListener, 
                             tools.customMessage(
                                     getString(R.string.help),
                                     getString(R.string.help_ended),
-                                    getString(R.string.show),
-                                    dialog -> onClick(binding.tab1),
                                     getString(R.string.dont_show_again),
                                     dialog -> {
                                         showCasePreferences.dontShowAgain();
                                         onClick(binding.tab1);
-                                    }
-                            );
+                                    },
+                                    getString(R.string.restart_trip),
+                                    dialog -> onClick(binding.tab1)
+                                    );
 
                         }
 

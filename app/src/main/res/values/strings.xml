@@ -38,7 +38,7 @@
     <string name="slide_2_title">Reading Articles</string>
     <string name="slide_3_title">Text Summarization</string>
     <string name="slide_1_description">Generating Mind Map From Articles Automatically</string>
-    <string name="slide_2_description">Reading Uploaded Articles Online &amp; Offline></string>
+    <string name="slide_2_description">Reading Uploaded Articles Online &amp; Offline </string>
     <string name="slide_3_description">Summarize Articles Automatically For Any Uploaded Article</string>
     <string name="upload">Upload</string>
     <string name="from_text">From Text</string>
@@ -83,4 +83,5 @@
     <string name="ignore_current_process">Ignore Current Progress  Any where?</string>
     <string name="stay_here">Stay Here</string>
     <string name="go_any_way">Go Any Way</string>
+    <string name="restart_trip">Restart Trip</string>
 </resources>

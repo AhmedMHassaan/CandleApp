@@ -127,7 +127,7 @@ public class FromTextFragment extends Fragment implements View.OnClickListener {
                         if (step == 0)
                             doShowCase(1, binding.lblRatioHelp, "Ratio", "Change Ratio To Control Of Summarization Size ");
                         else if (step == 1) {
-                            doShowCase(2, binding.txtInput, "Text Here", "Enter Text Here To Be Summarized \n Try to make long text to better results");
+                            doShowCase(2, binding.lblArticleHint, "Text Here", "Enter Text Here To Be Summarized \n Try to make long text to better results");
                         } else if (step == 2) {
                             doShowCase(3, binding.btnApply, "Apply Text", "Apply Text To be Uploaded \n summarized \n Mind map generated");
                         } else if (step == 3) { // hint for apply button
